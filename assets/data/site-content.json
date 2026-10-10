@@ -1,0 +1,24 @@
+{
+  "lastUpdated": "2026-09-26",
+  "researchMilestones": [
+    {
+      "id": "smiles-2026",
+      "title": "SMILES 2026 International Summer School",
+      "organizers": [
+        "Nanjing University",
+        "Skoltech"
+      ],
+      "location": "Nanjing University, Suzhou Campus, China",
+      "dates": "2026-07-13/2026-07-27",
+      "status": "Selected on-site participant",
+      "project": "WebPilot: Browser-Grounded Multimodal Web Coding Agent",
+      "outputStatus": "Co-authored manuscript submission (SSPP 2026 / OpenReview)"
+    },
+    {
+      "id": "itmo-or-monitoring",
+      "title": "Intelligent monitoring methods for medical and technological processes in the operating room based on video and speech analytics",
+      "institution": "ITMO University research group",
+      "status": "Ongoing research collaboration targeting a Q1 journal submission"
+    }
+  ]
+}

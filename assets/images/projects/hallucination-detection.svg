@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" rx="34" fill="#F8FAFC"/>
+<text x="110" y="82" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="48" font-weight="700" fill="#0F172A">Hallucination Detection from Hidden States</text>
+<text x="110" y="124" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" fill="#475569">Single-best-layer probing on Qwen2.5-0.5B internal representations</text>
+<rect x="110" y="160" width="1380" height="94" rx="24" fill="#FFFFFF" stroke="#D7E3EA" stroke-width="2"/>
+<circle cx="145" cy="207" r="11" fill="#14B8A6"/>
+<text x="169" y="201" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Qwen2.5-0.5B</text>
+<text x="169" y="226" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" fill="#475569">24-layer transformer</text>
+<line x1="435" y1="185" x2="435" y2="229" stroke="#E2E8F0" stroke-width="2"/>
+<circle cx="480" cy="207" r="11" fill="#14B8A6"/>
+<text x="504" y="201" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Hidden states</text>
+<text x="504" y="226" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" fill="#475569">last real token</text>
+<line x1="770" y1="185" x2="770" y2="229" stroke="#E2E8F0" stroke-width="2"/>
+<circle cx="815" cy="207" r="11" fill="#14B8A6"/>
+<text x="839" y="201" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Layer selection</text>
+<text x="839" y="226" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" fill="#475569">best validation AUROC</text>
+<line x1="1105" y1="185" x2="1105" y2="229" stroke="#E2E8F0" stroke-width="2"/>
+<circle cx="1150" cy="207" r="11" fill="#14B8A6"/>
+<text x="1174" y="201" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Probe</text>
+<text x="1174" y="226" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" fill="#475569">scaled logistic regression</text>
+<rect x="110" y="294" width="900" height="470" rx="28" fill="#FFFFFF" stroke="#D7E3EA" stroke-width="2"/>
+<text x="146" y="346" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A">AUROC across evaluation splits</text>
+<line x1="196" y1="686.0" x2="968" y2="686.0" stroke="#E2E8F0" stroke-width="2"/>
+<text x="178" y="692.0" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="16" fill="#475569">0.00</text>
+<line x1="196" y1="611.0" x2="968" y2="611.0" stroke="#E2E8F0" stroke-width="2"/>
+<text x="178" y="617.0" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="16" fill="#475569">0.25</text>
+<line x1="196" y1="536.0" x2="968" y2="536.0" stroke="#E2E8F0" stroke-width="2"/>
+<text x="178" y="542.0" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="16" fill="#475569">0.50</text>
+<line x1="196" y1="461.0" x2="968" y2="461.0" stroke="#E2E8F0" stroke-width="2"/>
+<text x="178" y="467.0" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="16" fill="#475569">0.75</text>
+<line x1="196" y1="386.0" x2="968" y2="386.0" stroke="#E2E8F0" stroke-width="2"/>
+<text x="178" y="392.0" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="16" fill="#475569">1.00</text>
+<rect x="291.0" y="411.2" width="110" height="274.8" rx="16" fill="#94A3B8"/>
+<text x="346" y="393.2" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#0F172A">0.916</text>
+<text x="346" y="724" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#475569">Train</text>
+<rect x="531.0" y="467.9" width="110" height="218.1" rx="16" fill="#2DD4BF"/>
+<text x="586" y="449.9" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#0F172A">0.727</text>
+<text x="586" y="724" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#475569">Validation</text>
+<rect x="771.0" y="486.8" width="110" height="199.2" rx="16" fill="#14B8A6"/>
+<text x="826" y="468.8" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#0F172A">0.664</text>
+<text x="826" y="724" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#475569">Held-out test</text>
+<rect x="1045" y="294" width="445" height="470" rx="28" fill="#FFFFFF" stroke="#D7E3EA" stroke-width="2"/>
+<text x="1079" y="346" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Final held-out metrics</text>
+<text x="1079" y="412" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#475569">Accuracy</text>
+<text x="1456" y="412" text-anchor="end" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A">71.2%</text>
+<rect x="1079" y="428" width="377" height="12" rx="6" fill="#E2E8F0"/>
+<rect x="1079" y="428" width="268.2" height="12" rx="6" fill="#14B8A6"/>
+<text x="1079" y="504" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#475569">F1</text>
+<text x="1456" y="504" text-anchor="end" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A">81.2%</text>
+<rect x="1079" y="520" width="377" height="12" rx="6" fill="#E2E8F0"/>
+<rect x="1079" y="520" width="306.3" height="12" rx="6" fill="#2DD4BF"/>
+<text x="1079" y="596" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#475569">AUROC</text>
+<text x="1456" y="596" text-anchor="end" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A">66.4%</text>
+<rect x="1079" y="612" width="377" height="12" rx="6" fill="#E2E8F0"/>
+<rect x="1079" y="612" width="250.4" height="12" rx="6" fill="#94A3B8"/>
+<rect x="1075" y="679" width="385" height="56" rx="18" fill="#CCFBF1"/>
+<text x="1095" y="714" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#0F766E">689 labelled samples · 4,494 features</text>
+<text x="110" y="836" font-family="Inter, Arial, sans-serif" font-size="18" fill="#475569">Source: repository evaluation artifact — results.json · final SAPLMA-inspired single-best-layer probe</text>
+</svg>

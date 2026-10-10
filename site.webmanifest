@@ -1,0 +1,20 @@
+{
+  "name": "Marwan M. Al-Falah \u2014 Academic Portfolio",
+  "short_name": "Marwan Al-Falah",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#14B8A6",
+  "icons": [
+    {
+      "src": "assets/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

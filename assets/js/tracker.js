@@ -2,7 +2,7 @@
   "use strict";
 
   // Replace this after your Vercel deployment.
-  const TRACKING_ENDPOINT = "__TRACKER_ENDPOINT__";
+  const TRACKING_ENDPOINT = "https://malfalah.vercel.app/api/track";
 
   const STORAGE = {
     owner: "ma_portfolio_owner_v1",
@@ -46,7 +46,7 @@
 
   const endpointReady =
     TRACKING_ENDPOINT.startsWith("https://") &&
-    !TRACKING_ENDPOINT.includes("__TRACKER_ENDPOINT__");
+    !TRACKING_ENDPOINT.includes("https://malfalah.vercel.app/api/track");
 
   if (!endpointReady) {
     console.info("[Portfolio Tracker] Endpoint not configured yet.");

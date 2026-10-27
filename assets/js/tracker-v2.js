@@ -44,9 +44,7 @@
     cleanControlParam("track");
   }
 
-  const endpointReady =
-    TRACKING_ENDPOINT.startsWith("https://") &&
-    !TRACKING_ENDPOINT.includes("https://malfalah.vercel.app/api/track");
+  const endpointReady = TRACKING_ENDPOINT.startsWith("https://");
 
   if (!endpointReady) {
     console.info("[Portfolio Tracker] Endpoint not configured yet.");

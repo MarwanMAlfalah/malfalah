@@ -1,1 +1,7 @@
 .DS_Store
+**/.DS_Store
+
+# Local environment secrets (keep .env.example tracked).
+.env
+.env.local
+.env.*.local

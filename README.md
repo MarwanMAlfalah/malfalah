@@ -24,7 +24,11 @@ Static academic portfolio designed for GitHub Pages. No Node.js, npm, bundler, f
 Keep factual content in the page that owns it. Shared site chrome stays in `app.js`. Reusable visual rules and tokens stay in `styles.css`. Add future projects using the existing `project-detail` pattern and publications using `pub-full`.
 
 ## GitHub Pages
-Create a repository named `MarwanMAlfalah.github.io`, place these files at repository root, and enable GitHub Pages from the main branch.
+The official portfolio is https://marwanmalfalah.github.io/malfalah/, served from the root of the `master` branch in `MarwanMAlfalah/malfalah`. Keep portfolio URLs under `/malfalah/`.
+
+Vercel hosts the tracking backend at `/api/track`. `vercel.json` adds `X-Robots-Tag: noindex` to Vercel responses to suppress indexing of duplicate static pages; it does not change API routing.
+
+The project-level `robots.txt` points to the sitemap, but crawlers read robots rules at the origin root (`https://marwanmalfalah.github.io/robots.txt`); that root file belongs to the GitHub Pages user site.
 
 
 ## 2026 research milestones included

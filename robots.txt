@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://marwanmalfalah.github.io/sitemap.xml
+Sitemap: https://marwanmalfalah.github.io/malfalah/sitemap.xml

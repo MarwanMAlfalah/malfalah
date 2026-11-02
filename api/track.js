@@ -8,6 +8,48 @@ const ALLOWED_EVENTS = new Set([
   "linkedin_click",
 ]);
 
+const MAX_PAYLOAD_BYTES = 8 * 1024;
+const FIELD_LIMITS = {
+  page: 80,
+  path: 2048,
+  referrer: 253,
+  engagementReason: 30,
+  target: 240,
+  referral: 80,
+  utmSource: 80,
+  utmCampaign: 80,
+  sessionId: 80,
+  device: 40,
+  language: 30,
+  timestamp: 40,
+};
+
+function payloadBytes(body) {
+  const serialized = typeof body === "string" ? body : JSON.stringify(body);
+  return Buffer.byteLength(serialized || "", "utf8");
+}
+
+function validPayload(data) {
+  if (!data || typeof data !== "object" || Array.isArray(data)) return false;
+  if (!ALLOWED_EVENTS.has(data.event)) return false;
+  for (const [field, limit] of Object.entries(FIELD_LIMITS)) {
+    if (
+      data[field] !== undefined &&
+      (typeof data[field] !== "string" || data[field].length > limit)
+    ) return false;
+  }
+  if (
+    data.engagementReason !== undefined &&
+    !["time", "pages"].includes(data.engagementReason)
+  ) return false;
+  if (
+    data.pages !== undefined &&
+    (!Array.isArray(data.pages) || data.pages.length > 8 ||
+      data.pages.some((page) => typeof page !== "string" || page.length > 50))
+  ) return false;
+  return true;
+}
+
 const EVENT_META = {
   visit: ["🟢", "New portfolio visitor"],
   engaged: ["👀", "Engaged portfolio visitor"],
@@ -93,7 +135,7 @@ function eventMessage(data, req) {
   const referral = text(data.referral, 100);
   const utmSource = text(data.utmSource, 100);
   const utmCampaign = text(data.utmCampaign, 100);
-  const referrer = text(data.referrer, 160) || "Direct / unknown";
+  const referrer = text(data.referrer, FIELD_LIMITS.referrer) || "Direct / unknown";
   const device = text(data.device, 40) || "Unknown";
   const language = text(data.language, 30) || "Unknown";
   const session = text(data.sessionId, 80).slice(0, 8);
@@ -162,8 +204,22 @@ module.exports = async function handler(req, res) {
     return res.status(204).end();
   }
 
-  const data = parseBody(req);
-  if (!data || !ALLOWED_EVENTS.has(text(data.event, 40))) {
+  let data;
+  try {
+    if (
+      Number(req.headers["content-length"]) > MAX_PAYLOAD_BYTES ||
+      payloadBytes(req.body) > MAX_PAYLOAD_BYTES
+    ) {
+      return res.status(413).json({ ok: false });
+    }
+    data = parseBody(req);
+    if (payloadBytes(data) > MAX_PAYLOAD_BYTES) {
+      return res.status(413).json({ ok: false });
+    }
+  } catch {
+    return res.status(400).json({ ok: false });
+  }
+  if (!validPayload(data)) {
     return res.status(400).json({ ok: false });
   }
 

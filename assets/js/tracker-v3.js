@@ -1,6 +1,9 @@
 (() => {
   "use strict";
 
+  if (window.__malfalahTrackerV3Initialized) return;
+  window.__malfalahTrackerV3Initialized = true;
+
   // Replace this after your Vercel deployment.
   const TRACKING_ENDPOINT = "https://malfalah.vercel.app/api/track";
 
@@ -16,31 +19,67 @@
     utmCampaign: "ma_portfolio_utm_campaign_v1",
   };
 
-  const params = new URLSearchParams(window.location.search);
+  // Keep page-local state even when storage is blocked or a write fails.
+  function safeStorage(name) {
+    const memory = new Map();
+    return {
+      get(key) {
+        if (memory.has(key)) return memory.get(key);
+        try {
+          return window[name].getItem(key);
+        } catch {
+          return null;
+        }
+      },
+      set(key, value) {
+        memory.set(key, value);
+        try {
+          window[name].setItem(key, value);
+        } catch {}
+      },
+      remove(key) {
+        memory.set(key, null);
+        try {
+          window[name].removeItem(key);
+        } catch {}
+      },
+    };
+  }
+
+  const local = safeStorage("localStorage");
+  const session = safeStorage("sessionStorage");
+  let params;
+  try {
+    params = new URLSearchParams(window.location.search);
+  } catch {
+    return;
+  }
 
   function cleanControlParam(name) {
     if (!params.has(name)) return;
-    const url = new URL(window.location.href);
-    url.searchParams.delete(name);
-    window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete(name);
+      window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+    } catch {}
   }
 
   // Owner mode: visit once with ?owner=1 from your own browser.
   // To re-enable tracking on that browser, visit once with ?owner=0.
   if (params.get("owner") === "1") {
-    localStorage.setItem(STORAGE.owner, "1");
+    local.set(STORAGE.owner, "1");
     cleanControlParam("owner");
   } else if (params.get("owner") === "0") {
-    localStorage.removeItem(STORAGE.owner);
+    local.remove(STORAGE.owner);
     cleanControlParam("owner");
   }
 
   // Visitor opt-out: ?no_track=1. Re-enable with ?track=1.
   if (params.get("no_track") === "1") {
-    localStorage.setItem(STORAGE.optOut, "1");
+    local.set(STORAGE.optOut, "1");
     cleanControlParam("no_track");
   } else if (params.get("track") === "1") {
-    localStorage.removeItem(STORAGE.optOut);
+    local.remove(STORAGE.optOut);
     cleanControlParam("track");
   }
 
@@ -57,8 +96,8 @@
     navigator.msDoNotTrack === "1";
 
   if (
-    localStorage.getItem(STORAGE.owner) === "1" ||
-    localStorage.getItem(STORAGE.optOut) === "1" ||
+    local.get(STORAGE.owner) === "1" ||
+    local.get(STORAGE.optOut) === "1" ||
     doNotTrack ||
     navigator.webdriver
   ) {
@@ -70,23 +109,23 @@
     return `${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
   }
 
-  let sessionId = sessionStorage.getItem(STORAGE.session);
+  let sessionId = session.get(STORAGE.session);
   if (!sessionId) {
     sessionId = randomId();
-    sessionStorage.setItem(STORAGE.session, sessionId);
+    session.set(STORAGE.session, sessionId);
   }
 
   if (params.get("ref")) {
-    sessionStorage.setItem(STORAGE.ref, params.get("ref").slice(0, 80));
+    session.set(STORAGE.ref, params.get("ref").slice(0, 80));
   }
   if (params.get("utm_source")) {
-    sessionStorage.setItem(
+    session.set(
       STORAGE.utmSource,
       params.get("utm_source").slice(0, 80),
     );
   }
   if (params.get("utm_campaign")) {
-    sessionStorage.setItem(
+    session.set(
       STORAGE.utmCampaign,
       params.get("utm_campaign").slice(0, 80),
     );
@@ -113,7 +152,7 @@
 
   let pages = [];
   try {
-    pages = JSON.parse(sessionStorage.getItem(STORAGE.pages) || "[]");
+    pages = JSON.parse(session.get(STORAGE.pages) || "[]");
     if (!Array.isArray(pages)) pages = [];
   } catch {
     pages = [];
@@ -123,8 +162,18 @@
   if (!pages.includes(currentPage)) {
     pages.push(currentPage);
     pages = pages.slice(-8);
-    sessionStorage.setItem(STORAGE.pages, JSON.stringify(pages));
+    session.set(STORAGE.pages, JSON.stringify(pages));
   }
+
+  const contentPages = new Set([
+    "About",
+    "Research",
+    "Publications",
+    "Projects",
+    "Experience",
+    "Contact",
+  ]);
+  const contentPageCount = new Set(pages.filter((name) => contentPages.has(name))).size;
 
   function referrerHost() {
     if (!document.referrer) return "Direct / unknown";
@@ -148,9 +197,9 @@
       sessionId,
       page: currentPage,
       path: window.location.pathname,
-      referral: sessionStorage.getItem(STORAGE.ref) || "",
-      utmSource: sessionStorage.getItem(STORAGE.utmSource) || "",
-      utmCampaign: sessionStorage.getItem(STORAGE.utmCampaign) || "",
+      referral: session.get(STORAGE.ref) || "",
+      utmSource: session.get(STORAGE.utmSource) || "",
+      utmCampaign: session.get(STORAGE.utmCampaign) || "",
       referrer: referrerHost(),
       pages,
       device: deviceType(),
@@ -160,12 +209,10 @@
     };
   }
 
-  function send(event, extra = {}) {
-    const payload = JSON.stringify(buildPayload(event, extra));
-
+  async function send(event, extra = {}) {
     // text/plain keeps the request CORS-simple and avoids exposing any secret.
     try {
-      fetch(TRACKING_ENDPOINT, {
+      const response = await fetch(TRACKING_ENDPOINT, {
         method: "POST",
         mode: "cors",
         credentials: "omit",
@@ -173,35 +220,79 @@
         headers: {
           "Content-Type": "text/plain;charset=UTF-8",
         },
-        body: payload,
-      }).catch(() => {});
+        body: JSON.stringify(buildPayload(event, extra)),
+      });
+      return response.ok ? "success" : "http_error";
     } catch {
       // Tracking must never interfere with the portfolio UX.
+      return "network_error";
     }
   }
 
-  if (sessionStorage.getItem(STORAGE.visitSent) !== "1") {
-    sessionStorage.setItem(STORAGE.visitSent, "1");
-    send("visit");
-  }
-
-  function maybeSendEngaged(reason) {
-    if (sessionStorage.getItem(STORAGE.engagedSent) === "1") return;
-
-    if (pages.length >= 3 || reason === "time") {
-      sessionStorage.setItem(STORAGE.engagedSent, "1");
-      send("engaged", { engagementReason: reason });
+  const pendingEvents = new Set();
+  async function sendSessionEvent(event, flag, extra = {}) {
+    if (session.get(flag) === "1" || pendingEvents.has(flag)) return false;
+    pendingEvents.add(flag);
+    try {
+      if ((await send(event, extra)) !== "success") return false;
+      session.set(flag, "1");
+      return true;
+    } finally {
+      pendingEvents.delete(flag);
     }
   }
 
-  maybeSendEngaged("pages");
+  void sendSessionEvent("visit", STORAGE.visitSent);
 
-  // One "engaged visitor" signal if someone stays actively on the site.
-  window.setTimeout(() => {
-    if (document.visibilityState === "visible") {
-      maybeSendEngaged("time");
+  async function maybeSendEngaged(reason) {
+    if (contentPageCount >= 3 || reason === "time") {
+      const delivered = await sendSessionEvent("engaged", STORAGE.engagedSent, {
+        engagementReason: reason,
+      });
+      if (delivered) stopEngagementTiming();
     }
-  }, 90_000);
+  }
+
+  let visibleTime = 0;
+  let visibleSince = null;
+  let engagementTimer = null;
+  let timeAttempted = false;
+
+  function stopEngagementTiming() {
+    if (engagementTimer !== null) window.clearTimeout(engagementTimer);
+    engagementTimer = null;
+    visibleSince = null;
+    document.removeEventListener("visibilitychange", updateEngagementTiming);
+  }
+
+  function updateEngagementTiming() {
+    if (engagementTimer !== null) window.clearTimeout(engagementTimer);
+    engagementTimer = null;
+    const now = Date.now();
+    if (visibleSince !== null) {
+      visibleTime += Math.max(0, now - visibleSince);
+      visibleSince = null;
+    }
+    if (session.get(STORAGE.engagedSent) === "1") {
+      stopEngagementTiming();
+      return;
+    }
+    if (document.visibilityState !== "visible" || timeAttempted) return;
+    if (visibleTime >= 90_000) {
+      // No retry loop: failed delivery may be retried by a later page load.
+      timeAttempted = true;
+      void maybeSendEngaged("time");
+      return;
+    }
+    visibleSince = now;
+    engagementTimer = window.setTimeout(updateEngagementTiming, 90_000 - visibleTime);
+  }
+
+  if (session.get(STORAGE.engagedSent) !== "1") {
+    document.addEventListener("visibilitychange", updateEngagementTiming);
+    updateEngagementTiming();
+    void maybeSendEngaged("pages");
+  }
 
   document.addEventListener(
     "click",

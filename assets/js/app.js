@@ -61,7 +61,7 @@
           <span class="brand-label">Marwan M. Al-Falah</span>
         </a>
         <nav class="nav-links" id="main-nav" aria-label="Primary navigation">
-          ${navItems.map(([id, label, href]) => `<a class="nav-link" href="${href}" ${page === id ? 'aria-current="page"' : ""}${id === "cv" ? ' target="_blank" rel="noopener"' : ""}>${label}</a>`).join("")}
+          ${navItems.map(([id, label, href]) => `<a class="nav-link" href="${href}" ${page === id ? 'aria-current="page"' : ""}${id === "cv" ? ' target="_blank" rel="noopener noreferrer"' : ""}>${label}</a>`).join("")}
         </nav>
         <div class="header-actions">
           <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme"><span class="icon"></span></button>
@@ -79,13 +79,13 @@
           <div class="footer-brand">Marwan M. Al-Falah</div>
           <div class="footer-meta">MSc Researcher in Intelligent Systems<br>Peter the Great St. Petersburg Polytechnic University</div>
           <div class="footer-social" aria-label="Social links">
-            <a href="https://github.com/MarwanMAlfalah" target="_blank" rel="noopener" aria-label="GitHub"><span class="icon" data-icon="github"></span></a>
-            <a href="https://www.linkedin.com/in/marwanmalfalah" target="_blank" rel="noopener" aria-label="LinkedIn"><span class="icon" data-icon="linkedin"></span></a>
-            <a href="https://scholar.google.com/citations?user=TC1SgRMAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><span class="icon" data-icon="graduation"></span></a>
+            <a href="https://github.com/MarwanMAlfalah" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><span class="icon" data-icon="github"></span></a>
+            <a href="https://www.linkedin.com/in/marwanmalfalah" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><span class="icon" data-icon="linkedin"></span></a>
+            <a href="https://scholar.google.com/citations?user=TC1SgRMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar"><span class="icon" data-icon="graduation"></span></a>
             <a href="mailto:marwanmalfalah@gmail.com" aria-label="Email"><span class="icon" data-icon="mail"></span></a>
           </div>
         </div>
-        <div class="footer-copy">© <span id="year"></span> Marwan M. Al-Falah. All rights reserved.<br>Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>. Last updated: October 10, 2026</div>
+        <div class="footer-copy">© <span id="year"></span> Marwan M. Al-Falah. All rights reserved.<br>Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>. Last updated: October 10, 2026</div>
       </div>`;
   }
 
@@ -96,11 +96,16 @@
     });
   }
 
-  const stored = localStorage.getItem("theme");
+  let stored;
+  try {
+    stored = localStorage.getItem("theme");
+  } catch {}
   const prefersDark =
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const initialTheme = stored || (prefersDark ? "dark" : "light");
+  const initialTheme = ["light", "dark"].includes(stored)
+    ? stored
+    : (prefersDark ? "dark" : "light");
   document.documentElement.dataset.theme = initialTheme;
 
   const themeToggle = document.getElementById("theme-toggle");
@@ -128,18 +133,21 @@
     const next =
       document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
-    localStorage.setItem("theme", next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
     syncThemeUI();
   });
 
   const menuToggle = document.getElementById("menu-toggle");
   const mainNav = document.getElementById("main-nav");
-  function closeMenu() {
+  function closeMenu(restoreFocus = false) {
     mainNav?.classList.remove("open");
     menuToggle?.setAttribute("aria-expanded", "false");
     if (menuToggle) {
       menuToggle.setAttribute("aria-label", "Open navigation");
       menuToggle.querySelector(".icon").innerHTML = svg("menu");
+      if (restoreFocus) menuToggle.focus();
     }
   }
   menuToggle?.addEventListener("click", () => {
@@ -151,15 +159,25 @@
       open ? "Close navigation" : "Open navigation",
     );
     menuToggle.querySelector(".icon").innerHTML = svg(open ? "close" : "menu");
+    if (open) mainNav.querySelector("a")?.focus();
   });
   mainNav?.addEventListener("click", (event) => {
-    if (event.target.closest("a")) closeMenu();
+    if (event.target.closest("a")) closeMenu(mainNav.classList.contains("open"));
+  });
+  mainNav?.addEventListener("focusout", (event) => {
+    if (!mainNav.contains(event.relatedTarget) && event.relatedTarget !== menuToggle) closeMenu();
   });
   window.addEventListener("resize", () => {
     if (window.innerWidth > 900) closeMenu();
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeMenu();
+    if (e.key === "Escape" && mainNav?.classList.contains("open")) closeMenu(true);
+  });
+
+  // Resolve the fragment against the current URL, including nested custom 404s.
+  const skipLink = document.querySelector(".skip-link");
+  skipLink?.addEventListener("click", () => {
+    skipLink.href = new URL("#main", window.location.href).href;
   });
 
   injectIcons();

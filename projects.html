@@ -16,11 +16,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <title>Projects — Marwan M. Al-Falah</title>
+    <title>Research Projects — Marwan M. Al-Falah</title>
     <meta
       name="description"
       content="Research projects and open-source systems by Marwan M. Al-Falah."
     />
+    <link rel="canonical" href="https://marwanmalfalah.github.io/malfalah/projects.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Research Projects — Marwan M. Al-Falah" />
+    <meta property="og:description" content="Research projects and open-source systems by Marwan M. Al-Falah." />
+    <meta property="og:url" content="https://marwanmalfalah.github.io/malfalah/projects.html" />
+    <meta property="og:image" content="https://marwanmalfalah.github.io/malfalah/assets/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Research Projects — Marwan M. Al-Falah" />
+    <meta name="twitter:description" content="Research projects and open-source systems by Marwan M. Al-Falah." />
+    <meta name="twitter:image" content="https://marwanmalfalah.github.io/malfalah/assets/images/og-image.png" />
   </head>
   <body data-page="projects">
     <a class="skip-link" href="#main">Skip to main content</a>
@@ -52,20 +64,23 @@
               >
               <h2>WebPilot: Browser-Grounded Multimodal Web Coding Agent</h2>
               <p>
-                Developed during SMILES 2026, WebPilot studies a
-                browser-grounded agent loop that uses screenshots, DOM states,
-                build and console logs, and interaction feedback to iteratively
-                generate, test and repair web applications. The project compares
-                single-pass generation with structured and autonomous
-                browser-feedback pipelines, with evaluation across
-                executability, interaction correctness, visual quality and
-                repair behavior.
+                <strong>Research question:</strong> How can a web-coding agent
+                improve generated applications by observing browser execution?
               </p>
-              <p class="project-note">
-                <strong>Research outcome:</strong> co-authored manuscript
-                submitted through OpenReview as an SSPP 2026 submission. This
-                item is presented as a manuscript submission, not as a published
-                paper.
+              <p>
+                <strong>Method:</strong> Iterative generation, execution,
+                diagnosis and repair using screenshots, DOM state, console/build
+                feedback and interaction results.
+              </p>
+              <p>
+                <strong>Evidence:</strong> Developed during SMILES 2026 with a
+                browser-grounded multimodal evaluation workflow; the work led
+                to a co-authored SSPP 2026 manuscript submission via OpenReview.
+              </p>
+              <p>
+                <strong>My contribution:</strong> Contributed to the research
+                workflow, experimental evaluation and manuscript development
+                during SMILES 2026.
               </p>
               <div class="tag-row">
                 <span class="tag">Multimodal Agents</span
@@ -80,16 +95,33 @@
               <span class="project-label">Current research platform</span>
               <h2>Deep Synaptica</h2>
               <p>
-                Agent observability and evaluation infrastructure that exposes
-                run-level behavior, tracing, latency and outputs for
-                reproducible analysis.
+                <strong>Research question:</strong> How can agent behavior be
+                made observable and reproducibly evaluated at the run level?
+              </p>
+              <p>
+                <strong>Method:</strong> A FastAPI backend connects an agent
+                runtime and custom JSON tracer to a Next.js/TypeScript dashboard
+                for inspecting tool use, outputs and latency.
+              </p>
+              <p>
+                <strong>Evidence:</strong> Run API endpoints and stored JSONL
+                traces provide implementation artifacts for inspecting agent
+                behavior and developing evaluation workflows.
+              </p>
+              <p>
+                <strong>My contribution:</strong> Designed and implemented the
+                MVP architecture as part of my agent-observability research.
+              </p>
+              <p>
+                <strong>Scope:</strong> Research infrastructure / MVP; not a
+                production observability platform.
               </p>
               <a
                 class="text-link"
                 href="https://github.com/MarwanMAlfalah/deep-synaptica"
                 target="_blank"
                 rel="noopener"
-                >Open repository<span class="icon" data-icon="external"></span
+                >Code<span class="icon" data-icon="external"></span
               ></a>
             </div>
           </article>
@@ -104,17 +136,51 @@
               >
               <h2>Vendor-Agnostic Industrial Orchestrator</h2>
               <p>
-                A multi-agent orchestration architecture for industrial
-                workflows with policy decisions, approval paths, deterministic
-                evaluation and reproducibility artifacts.
+                <strong>Research question:</strong> How can orchestration
+                coordinate heterogeneous industrial interfaces while preserving
+                governance, approval boundaries, traceability and failure
+                containment?
               </p>
-              <a
-                class="text-link"
-                href="https://github.com/MarwanMAlfalah/vendor-agnostic-industrial-orchestrator"
-                target="_blank"
-                rel="noopener"
-                >Open repository<span class="icon" data-icon="external"></span
-              ></a>
+              <p>
+                <strong>Method:</strong> Separate planning, capability matching,
+                governance decisions and adapter-mediated execution, with mock
+                OPC UA, REST and legacy interfaces, deterministic baselines and
+                LangGraph continuation/persistence experiments.
+              </p>
+              <p>
+                <strong>Evidence:</strong> In the 240-scenario deterministic
+                journal profile, both governance-aware runtimes recorded
+                runtime-aligned outcome accuracy and policy compliance of 1.0,
+                with zero unsafe executions under the documented definitions.
+              </p>
+              <p>
+                <strong>Scope:</strong> Deterministic research scenarios and mock
+                adapters; not evidence of certified safety or live industrial
+                deployment.
+              </p>
+              <p>
+                <strong>My contribution:</strong> Developed the architecture,
+                governance/runtime implementation, evaluation design and
+                reproducibility artifacts, with analysis and manuscript
+                preparation.
+              </p>
+              <p>
+                <a
+                  class="text-link"
+                  href="https://github.com/MarwanMAlfalah/vendor-agnostic-industrial-orchestrator"
+                  target="_blank"
+                  rel="noopener"
+                  >Code<span class="icon" data-icon="external"></span
+                ></a>
+                ·
+                <a
+                  class="text-link"
+                  href="https://github.com/MarwanMAlfalah/vendor-agnostic-industrial-orchestrator/blob/main/data/results/aligned_scaled_metrics_by_runtime.csv"
+                  target="_blank"
+                  rel="noopener"
+                  >Results<span class="icon" data-icon="external"></span
+                ></a>
+              </p>
             </div>
           </article>
           <article class="project-detail" id="clinical-documentation">
@@ -123,17 +189,46 @@
               <span class="project-label">Published research prototype</span>
               <h2>Clinical Documentation Intelligent Control System</h2>
               <p>
-                A speech-to-structured-clinical-documentation pipeline with
-                supervisory logic, human oversight and explicit state
-                transitions.
+                <strong>Research question:</strong> How can clinical speech be
+                transformed into structured documentation with supervisory
+                control and human review?
               </p>
-              <a
-                class="text-link"
-                href="https://github.com/MarwanMAlfalah/clinical-doc-ics-demo"
-                target="_blank"
-                rel="noopener"
-                >Open repository<span class="icon" data-icon="external"></span
-              ></a>
+              <p>
+                <strong>Method:</strong> Audio → faster-whisper ASR → LLM SOAP
+                notes → ontology-based standardization → supervisor → output,
+                with finite-state control and a human-review path.
+              </p>
+              <p>
+                <strong>Evidence:</strong> Associated peer-reviewed research and
+                a public prototype with explicit state-transition logging and
+                supervisor decisions.
+              </p>
+              <p>
+                <strong>My contribution:</strong> Implemented the experimental
+                pipeline and intelligent-control structure, integrating ASR,
+                LLM generation, standardization and supervision.
+              </p>
+              <p>
+                <strong>Scope:</strong> Assistive research prototype; not an
+                autonomous diagnostic system or deployed clinical product.
+              </p>
+              <p>
+                <a
+                  class="text-link"
+                  href="https://github.com/MarwanMAlfalah/clinical-doc-ics-demo"
+                  target="_blank"
+                  rel="noopener"
+                  >Code<span class="icon" data-icon="external"></span
+                ></a>
+                ·
+                <a
+                  class="text-link"
+                  href="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;user=TC1SgRMAAAAJ&amp;citation_for_view=TC1SgRMAAAAJ:UeHWp8X0CEIC"
+                  target="_blank"
+                  rel="noopener"
+                  >Scholar<span class="icon" data-icon="external"></span
+                ></a>
+              </p>
             </div>
           </article>
           <article class="project-detail" id="hallucination-detection">
@@ -145,17 +240,49 @@
               <span class="project-label">LLM evaluation project</span>
               <h2>Hallucination Detection from Hidden States</h2>
               <p>
-                A lightweight probing approach that uses internal model
-                representations to distinguish truthful from hallucinated
-                responses.
+                <strong>Research question:</strong> Can hidden-state probes
+                distinguish truthful from hallucinated responses in a compact
+                language model?
               </p>
-              <a
-                class="text-link"
-                href="https://github.com/MarwanMAlfalah/smiles-2026-hallucination-detection"
-                target="_blank"
-                rel="noopener"
-                >Open repository<span class="icon" data-icon="external"></span
-              ></a>
+              <p>
+                <strong>Method:</strong> SAPLMA-inspired single-best-layer probing
+                of Qwen2.5-0.5B: extract hidden representations, select a layer by
+                validation AUROC and train a regularized logistic-regression
+                probe. The language model is not fine-tuned.
+              </p>
+              <p>
+                <strong>Evidence:</strong> On 689 labelled samples, the final
+                probe reached internal held-out AUROC 0.664 and validation AUROC
+                0.727. SOLUTION.md, results.json and predictions.csv document the
+                method, evaluation and generated predictions.
+              </p>
+              <p>
+                <strong>My contribution:</strong> Implemented hidden-state
+                feature extraction and probe selection in aggregation.py and
+                probe.py.
+              </p>
+              <p>
+                <strong>Scope:</strong> Internal evaluation on a small challenge
+                dataset; no broad hallucination-detection generalization is
+                established. This is inspired by SAPLMA, not its implementation.
+              </p>
+              <p>
+                <a
+                  class="text-link"
+                  href="https://github.com/MarwanMAlfalah/smiles-2026-hallucination-detection"
+                  target="_blank"
+                  rel="noopener"
+                  >Code<span class="icon" data-icon="external"></span
+                ></a>
+                ·
+                <a
+                  class="text-link"
+                  href="https://github.com/MarwanMAlfalah/smiles-2026-hallucination-detection/blob/main/results.json"
+                  target="_blank"
+                  rel="noopener"
+                  >Results<span class="icon" data-icon="external"></span
+                ></a>
+              </p>
             </div>
           </article>
           <article class="project-detail" id="terafinder">
@@ -166,16 +293,28 @@
               >
               <h2>TeraFinder</h2>
               <p>
-                A multi-source retrieval and synthesis system using LangGraph
-                and a ports-and-adapters architecture for evidence-oriented
-                search.
+                <strong>Research question:</strong> How can multiple retrieval
+                sources be coordinated into an evidence-oriented search workflow?
+              </p>
+              <p>
+                <strong>Method:</strong> LangGraph coordinates multi-source
+                retrieval and synthesis through a ports-and-adapters architecture.
+              </p>
+              <p>
+                <strong>Evidence:</strong> Public team implementation with local
+                setup instructions for inspecting and reproducing the workflow.
+              </p>
+              <p>
+                <strong>My contribution:</strong> Contributed to the collaborative
+                retrieval and synthesis project during the ITMO × Sber Open Source
+                BootCamp.
               </p>
               <a
                 class="text-link"
                 href="https://github.com/MarwanMAlfalah/OS_BOOTCAMP-LLM"
                 target="_blank"
                 rel="noopener"
-                >Open repository<span class="icon" data-icon="external"></span
+                >Code<span class="icon" data-icon="external"></span
               ></a>
             </div>
           </article>
@@ -185,16 +324,35 @@
               <span class="project-label">Peer-reviewed research</span>
               <h2>Content-Based Phishing Detection</h2>
               <p>
-                A content-based phishing detection study centered on HTML
-                structural features, accompanied by a public implementation.
+                <strong>Research question:</strong> Can phishing pages be
+                distinguished from legitimate pages using HTML structural
+                features alone?
               </p>
-              <a
-                class="text-link"
-                href="https://github.com/MarwanMAlfalah/phishing-website-detection-content-based-analysis"
-                target="_blank"
-                rel="noopener"
-                >Open repository<span class="icon" data-icon="external"></span
-              ></a>
+              <p>
+                <strong>Method:</strong> Content-derived HTML features are used
+                to train and evaluate machine-learning classifiers.
+              </p>
+              <p>
+                <strong>Evidence:</strong> Peer-reviewed study in Artificial
+                Intelligence Topics and Applications, with a public implementation.
+              </p>
+              <p>
+                <a
+                  class="text-link"
+                  href="https://github.com/MarwanMAlfalah/phishing-website-detection-content-based-analysis"
+                  target="_blank"
+                  rel="noopener"
+                  >Code<span class="icon" data-icon="external"></span
+                ></a>
+                ·
+                <a
+                  class="text-link"
+                  href="https://asejournals.com/journal/index.php/AITA/article/view/14"
+                  target="_blank"
+                  rel="noopener"
+                  >Paper<span class="icon" data-icon="external"></span
+                ></a>
+              </p>
             </div>
           </article>
         </div>

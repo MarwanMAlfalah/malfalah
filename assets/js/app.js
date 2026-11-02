@@ -85,7 +85,7 @@
             <a href="mailto:marwanmalfalah@gmail.com" aria-label="Email"><span class="icon" data-icon="mail"></span></a>
           </div>
         </div>
-        <div class="footer-copy">© <span id="year"></span> Marwan M. Al-Falah. All rights reserved.<br>Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>. Last updated: October 10, 2026</div>
+        <div class="footer-copy">© <span id="year"></span> Marwan M. Al-Falah. All rights reserved.<br>Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.</div>
       </div>`;
   }
 

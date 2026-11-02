@@ -93,29 +93,35 @@
           <article class="project-detail" id="deep-synaptica">
             <img src="assets/images/projects/deep-synaptica.webp" width="1672" height="941" loading="lazy" alt="Deep Synaptica dashboard showing agent traces and evaluation" />
             <div>
-              <span class="project-label">Current research platform</span>
+              <span class="project-label">Research infrastructure / MVP</span>
               <h2>Deep Synaptica</h2>
               <p>
                 <strong>Research question:</strong> How can agent behavior be
                 made observable and reproducibly evaluated at the run level?
               </p>
               <p>
-                <strong>Method:</strong> A FastAPI backend connects an agent
-                runtime and custom JSON tracer to a Next.js/TypeScript dashboard
-                for inspecting tool use, outputs and latency.
+                <strong>Method:</strong> Implemented components include a FastAPI
+                run API, a Python/Groq workflow, a custom JSONL tracer, file-based
+                run summaries, and a Next.js/TypeScript dashboard. Integration
+                between runtime execution, tracing, summary persistence and
+                dashboard views is still in progress.
               </p>
               <p>
-                <strong>Evidence:</strong> Run API endpoints and stored JSONL
-                traces provide implementation artifacts for inspecting agent
-                behavior and developing evaluation workflows.
+                <strong>Evidence:</strong> The repository provides implemented
+                API routes, tracer schemas, JSONL event serialization, file-based
+                summary retrieval, and dashboard views as component-level
+                research infrastructure. Successful end-to-end run creation is
+                not yet demonstrated.
               </p>
               <p>
                 <strong>My contribution:</strong> Designed and implemented the
-                MVP architecture as part of my agent-observability research.
+                MVP components for agent-observability and evaluation research.
               </p>
               <p>
-                <strong>Scope:</strong> Research infrastructure / MVP; not a
-                production observability platform.
+                <strong>Scope:</strong> Research infrastructure / MVP with
+                incomplete end-to-end integration; not a production observability
+                platform or validated agent-quality benchmark. General tool
+                execution and tool-call tracing are not yet implemented.
               </p>
               <a
                 class="text-link"
@@ -129,7 +135,7 @@
           <article class="project-detail" id="industrial-orchestrator">
             <img
               src="assets/images/projects/industrial-orchestrator.webp" width="1600" height="900" loading="lazy"
-              alt="Outcome accuracy and policy compliance by orchestration runtime"
+              alt="Aligned policy compliance and conditional unsafe execution by orchestration runtime"
             />
             <div>
               <span class="project-label"
@@ -153,6 +159,17 @@
                 journal profile, both governance-aware runtimes recorded
                 runtime-aligned outcome accuracy and policy compliance of 1.0,
                 with zero unsafe executions under the documented definitions.
+              </p>
+              <p class="project-note">
+                Unsafe execution is calculated over the 140 policy-sensitive
+                eligible scenarios (BLOCK or REQUIRE_APPROVAL), not all 240
+                journal-profile scenarios.
+                <a class="text-link"
+                  href="assets/images/projects/industrial-orchestrator.webp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View full-size chart<span class="icon" data-icon="external"></span></a
+                >
               </p>
               <p>
                 <strong>Scope:</strong> Deterministic research scenarios and mock
@@ -340,7 +357,7 @@
               <p>
                 <a
                   class="text-link"
-                  href="https://github.com/MarwanMAlfalah/phishing-website-detection-content-based-analysis"
+                  href="https://github.com/MarwanMAlfalah/content-phishing-detection"
                   target="_blank"
                   rel="noopener noreferrer"
                   >Code<span class="icon" data-icon="external"></span

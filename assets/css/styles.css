@@ -2061,3 +2061,111 @@ html[data-theme="dark"] .academic-date {
   object-fit: cover;
   display: block;
 }
+
+/* Compact institutional feature */
+.institutional-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: linear-gradient(110deg, rgba(20, 184, 166, .045), transparent), var(--surface);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.institutional-feature > * {
+  min-width: 0;
+}
+
+.institutional-feature-label,
+.institutional-feature-meta {
+  display: block;
+  font-size: .74rem;
+  line-height: 1.5;
+}
+
+.institutional-feature-label {
+  color: var(--teal-deep);
+  font-weight: 700;
+}
+
+.institutional-feature-meta {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.institutional-feature-copy h2 {
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.institutional-feature-copy p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+.institutional-feature-cta {
+  font-size: .82rem;
+}
+
+.institutional-feature-cta .icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.institutional-feature:hover,
+.institutional-feature:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(20, 184, 166, .45);
+  box-shadow: 0 6px 18px rgba(20, 184, 166, .08);
+}
+
+.institutional-feature:focus-visible {
+  outline: 2px solid var(--teal-deep);
+  outline-offset: 4px;
+}
+
+html[data-theme="dark"] .institutional-feature-label {
+  color: var(--teal-bright);
+}
+
+html[data-theme="dark"] .institutional-feature:focus-visible {
+  outline-color: var(--teal-bright);
+}
+
+.institutional-feature:hover .institutional-feature-cta .icon,
+.institutional-feature:focus-visible .institutional-feature-cta .icon {
+  transform: translate(1px, -1px);
+}
+
+@media (max-width: 900px) {
+  .institutional-feature {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .institutional-feature-cta {
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .institutional-feature,
+  .institutional-feature-cta .icon {
+    transition: none;
+  }
+
+  .institutional-feature:hover,
+  .institutional-feature:focus-visible,
+  .institutional-feature:hover .institutional-feature-cta .icon,
+  .institutional-feature:focus-visible .institutional-feature-cta .icon {
+    transform: none;
+  }
+}
